@@ -1,3 +1,6 @@
+from time import perf_counter
+
+
 def main():
     left_list: list = []
     right_list: list = []
@@ -21,7 +24,10 @@ def main():
         summation += ((left_list.pop() - right_list.pop())**2)**0.5
 
     print(summation)
+    print(summation == 2367773)
 
 
 if __name__ == '__main__':
+    start = perf_counter()
     main()
+    print(perf_counter() - start)
