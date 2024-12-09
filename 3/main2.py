@@ -3,7 +3,7 @@ from time import perf_counter
 
 
 def main():
-    pattern = r"mul\(([0-9]+),([0-9]+)\)"
+    pattern = r"(don't\(\))|(do\(\))|mul\(([0-9]+),([0-9]+)\)"
     txt: str = ""
 
     import os
@@ -15,12 +15,21 @@ def main():
     print(matches)
 
     sum: float = 0
+    anabled = True
     for match in matches:
-        x, y = match
-        sum += float(x) * float(y)
+        fcommand, tcommand, x, y = match
+
+        if fcommand == "don't()":
+            anabled = False
+        elif tcommand == "do()":
+            anabled = True
+            continue
+
+        if anabled:
+            sum += float(x) * float(y)
 
     print(sum)
-    print(sum == 182780583)
+    print(sum == 90772405)
 
 
 if __name__ == '__main__':
