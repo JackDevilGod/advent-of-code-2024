@@ -33,38 +33,36 @@ def main():
 
     files: bool = True
     preprocessed_data: list[int | str] = []
-    file_directory = []
+    file_direct = []
     file_id: int = 0
     for block in data:
         if files:
             preprocessed_data += [(block, file_id)]
-            file_directory += [(block, file_id)]
+            file_direct += [(block, file_id)]
             file_id += 1
             files = False
         else:
             preprocessed_data += [(block, ".")]
             files = True
+
     # print(preprocessed_data)
-
-    file_directory.reverse()
-    for file in file_directory:
-        print(f"{(len(file_directory) - file[1])/len(file_directory)}")
-
+    file_direct.reverse()
+    for file in file_direct:
+        print(f"{((len(file_direct) - file[1])/len(file_direct)) * 100:0.2f}")
         amount_file, value_file = file
-        for index in range(len(preprocessed_data)):
-            amount_space, value_space = preprocessed_data[index]
+        file_index = preprocessed_data.index(file)
+
+        for index_free in range(0, file_index):
+            amount_space, value_space = preprocessed_data[index_free]
             if value_space != ".":
                 continue
-            elif index > preprocessed_data.index(file):
-                break
 
-            if (amount_space >= amount_file):
-                preprocessed_data[index] = (amount_space - amount_file, ".")
+            if (amount_space >= amount_file and index_free < file_index):
+                preprocessed_data[index_free] = (amount_space - amount_file, ".")
 
-                index_file = preprocessed_data.index(file)
-                preprocessed_data[index_file] = (amount_file, ".")
+                preprocessed_data[file_index] = (amount_file, ".")
+                preprocessed_data.insert(index_free, file)
 
-                preprocessed_data.insert(index, file)
                 preprocessed_data = compress(preprocessed_data)
                 break
 
@@ -72,9 +70,6 @@ def main():
     for data in preprocessed_data:
         amount, value = data
         decoded_data += [value for _ in range(amount)]
-    print(preprocessed_data)
-    print(decoded_data)
-    print("".join([str(_) for _ in decoded_data]))
 
     summation = 0
     for index, value in enumerate(decoded_data):
