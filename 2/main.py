@@ -1,41 +1,29 @@
-from copy import deepcopy
-
-
-def save_checker(inp: list[int]) -> bool:
-    t = sorted(inp)
-    f = sorted(inp, reverse=True)
-    if inp in [sorted(inp), sorted(inp, reverse=True)]:
-        for index in range(len(inp) - 1):
-            dif = ((inp[index] - inp[index + 1])**2)**0.5
-            if 1 > dif or dif  > 3:
-                return False
-        return True
-
-    return False
+from time import perf_counter
 
 
 def main():
-    inp: str = input()
-
     sum_safe: int = 0
+    import os
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
+        for line in file:
+            report: list[int] = [int(i) for i in line.split()]
 
-    while inp != "":
-        data: list[int] = [int(i) for i in inp.split()]
+            safe: bool = True
+            if (len(set(report)) == len(report) and
+                    report in [sorted(report), sorted(report, reverse=True)]):
+                for index in range(0, len(report) - 1):
+                    if abs(report[index] - report[index + 1]) not in [1, 2 ,3]:
+                        safe = False
+                        break
 
-        if save_checker(data):
-            sum_safe += 1
-        else:
-            for i in range(len(data)):
-                mod_list = deepcopy(data)
-                mod_list.pop(i)
-                if save_checker(mod_list):
+                if safe:
                     sum_safe += 1
-                    break
-
-        inp = input()
 
     print(sum_safe)
+    print(sum_safe == 479)
 
 
 if __name__ == '__main__':
+    start = perf_counter()
     main()
+    print(perf_counter() - start)
