@@ -22,9 +22,6 @@ def main():
             data = [_.strip() for _ in line.split(":")]
             results.append(int(data[0]))
             elements.append([int(_) for _ in data[1].split()])
-            #print(data)
-            #print(results)
-            #print(elements)
 
     tor_t: int = 0
     for i in range(len(results)):
