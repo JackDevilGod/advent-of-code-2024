@@ -11,7 +11,7 @@ def main():
 
     print(row_stones)
     for instance in range(25):
-        print(f"{instance}/25")
+        print(f"{instance + 1}/25")
         new_row: list[int] = []
 
         for stone in row_stones:
