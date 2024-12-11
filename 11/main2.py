@@ -3,6 +3,7 @@ from time import perf_counter
 
 def main():
     row_stones: list[int] = []
+    instances: int = 75
 
     import os
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
@@ -13,8 +14,8 @@ def main():
     for stone in set(row_stones):
         count_stones[stone] = row_stones.count(stone)
 
-    for instance in range(75):
-        print(f"{instance}/75")
+    for instance in range(instances):
+        print(f"{instance}/{instances}")
         new_dict = {}
 
         for stone in count_stones.keys():
