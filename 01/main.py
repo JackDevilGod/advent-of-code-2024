@@ -2,8 +2,8 @@ from time import perf_counter
 
 
 def main():
-    left_list: list = []
-    right_list: list = []
+    left_list: list[int] = []
+    right_list: list[int] = []
 
     import os
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
@@ -12,7 +12,7 @@ def main():
             left_list.append(left)
             right_list.append(right)
 
-    summation: float = 0
+    summation: int = 0
 
     for left, right in zip(sorted(left_list), sorted(right_list)):
         summation += abs(left - right)

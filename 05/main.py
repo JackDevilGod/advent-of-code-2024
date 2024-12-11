@@ -2,7 +2,7 @@ from time import perf_counter
 
 
 def main():
-    rules: list[tuple[int]] = []
+    rules: list[tuple[int, int]] = []
     updates: list[list[int]] = []
 
     import os
@@ -13,7 +13,7 @@ def main():
             rules.append((fom, to))
             inp = file.readline()
 
-        inp: str = file.readline()
+        inp = file.readline()
         while inp != "":
             updates.append([int(_) for _ in inp.split(",")])
             inp = file.readline()
@@ -31,14 +31,15 @@ def main():
             sorted_update.append(value)
         sorted_updates.append(sorted_update)
 
-    sumation: int = 0
+    summation: int = 0
 
     for update in sorted_updates:
         if update in updates:
-            sumation += update[len(update)//2]
+            summation += update[len(update)//2]
 
-    print(sumation)
-    print(sumation == 5651)
+    print(summation)
+    print(summation == 5651)
+
 
 if __name__ == '__main__':
     start = perf_counter()

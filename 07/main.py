@@ -1,15 +1,16 @@
 from copy import deepcopy
-from math import prod
 import time
 
-def down_mult(element: list[int], result: int) -> bool:
+
+def recursive_check(element: list[int], result: int) -> bool:
     if len(element) == 1:
         return int(element[0]) == result
     else:
         copy = deepcopy(element)
-        return (down_mult([copy[0] + copy[1]] + copy[2:], result) or
-                down_mult([copy[0] * copy[1]] + copy[2:], result) or
-                down_mult([int(str(copy[0]) + str(copy[1]))] + copy[2:], result))
+        return (recursive_check([copy[0] + copy[1]] + copy[2:], result) or
+                recursive_check([copy[0] * copy[1]] + copy[2:], result) or
+                recursive_check([int(str(copy[0]) + str(copy[1]))] + copy[2:], result))
+
 
 def main():
     start = time.perf_counter()
@@ -26,11 +27,12 @@ def main():
     tor_t: int = 0
     for i in range(len(results)):
         print(f"{i + 1}/{len(results)}")
-        if down_mult(elements[i], results[i]):
+        if recursive_check(elements[i], results[i]):
             tor_t += results[i]
 
     print(tor_t)
     print(time.perf_counter() - start)
+
 
 if __name__ == '__main__':
     main()

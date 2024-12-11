@@ -20,7 +20,7 @@ def main():
 
     # print(preprocessed_data)
     summation: int = 0
-    index = 0
+    index: int = 0
     while index < len(preprocessed_data):
         if "." in preprocessed_data:
             while preprocessed_data[-1] == ".":
@@ -29,7 +29,7 @@ def main():
             free_index = preprocessed_data.index(".")
             preprocessed_data[free_index] = preprocessed_data.pop()
 
-        summation += index * preprocessed_data[index]
+        summation += index * int(preprocessed_data[index])
         index += 1
 
     print(summation)

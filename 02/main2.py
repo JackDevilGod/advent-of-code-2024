@@ -10,7 +10,7 @@ def save_checker(inp: list[int]) -> bool:
         return False
 
     for index in range(0, len(inp) - 1):
-        if abs(inp[index] - inp[index + 1]) not in [1, 2 ,3]:
+        if abs(inp[index] - inp[index + 1]) not in [1, 2, 3]:
             return False
 
     return True

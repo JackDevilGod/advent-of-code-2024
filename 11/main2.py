@@ -10,17 +10,17 @@ def main():
         for line in [line.removesuffix("\n") for line in file]:
             row_stones = [int(_) for _ in line.split()]
 
-    count_stones: dict = {}
+    count_stones: dict[int, int] = {}
     for stone in set(row_stones):
         count_stones[stone] = row_stones.count(stone)
 
     for instance in range(instances):
         print(f"{instance}/{instances}")
-        new_dict = {}
+        new_dict: dict[int, int] = {}
 
         for stone in count_stones.keys():
             if stone == 0:
-                new_stones:list[int] = [1]
+                new_stones: list[int] = [1]
             elif len(str(stone)) % 2 == 0:
                 str_digit = str(stone)
                 pivot = len(str_digit)//2
@@ -37,6 +37,7 @@ def main():
         count_stones = new_dict
 
     print(sum([count_stones[key] for key in count_stones.keys()]))
+
 
 if __name__ == '__main__':
     start: float = perf_counter()

@@ -1,4 +1,4 @@
-def compress_recur(list) ->list:
+def compress_recur(list) -> list:
     if len(list) <= 1:
         return list
 
@@ -13,6 +13,7 @@ def compress_recur(list) ->list:
 
     return compress_left + compress_right
 
+
 def compress(list: list) -> list:
     amount_space, amount_value = list[-1]
     while amount_value == ".":
@@ -26,13 +27,14 @@ def compress(list: list) -> list:
 
 def main():
     import os
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
-        for line in [line.removesuffix("\n") for line in file]:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"),
+              "r+") as input_file:
+        for line in [line.removesuffix("\n") for line in input_file]:
             data: list[int] = [int(_) for _ in list(line)]
     # print(data)
 
     files: bool = True
-    preprocessed_data: list[int | str] = []
+    preprocessed_data: list[tuple[int, int] | tuple[int, str]] = []
     file_direct = []
     file_id: int = 0
     for block in data:
@@ -67,14 +69,14 @@ def main():
                 break
 
     decoded_data = []
-    for data in preprocessed_data:
-        amount, value = data
+    for data_block in preprocessed_data:
+        amount, value = data_block
         decoded_data += [value for _ in range(amount)]
 
     summation = 0
     for index, value in enumerate(decoded_data):
         if value != ".":
-            summation += index * value
+            summation += index * int(value)
 
     print(summation)
     print(summation == 6389911791746)

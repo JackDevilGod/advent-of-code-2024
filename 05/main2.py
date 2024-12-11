@@ -1,5 +1,5 @@
 def main():
-    rules: list[tuple[int]] = []
+    rules: list[tuple[int, int]] = []
     updates: list[list[int]] = []
 
     import os
@@ -31,13 +31,14 @@ def main():
                 sorted_update.append(value)
         sorted_updates.append(sorted_update)
 
-    sumation: int = 0
+    summation: int = 0
 
     for update in sorted_updates:
         if update not in updates:
-            sumation += update[len(update)//2]
+            summation += update[len(update)//2]
 
-    print(sumation)
+    print(summation)
+
 
 if __name__ == '__main__':
     main()

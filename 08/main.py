@@ -1,6 +1,4 @@
-from pprint import pprint
-
-def manhatten(x1: tuple[int], x2: tuple[int]) -> tuple[int]:
+def manhattan(x1: tuple[int, int], x2: tuple[int, int]) -> tuple[int, int]:
     return (x1[0] - x2[0]), (x1[1] - x2[1])
 
 
@@ -13,7 +11,7 @@ def main():
             data = list(line)
             matrix.append(data)
 
-    antenna_locations: dict[str, list[tuple[int]]] = {}
+    antenna_locations: dict[str, list[tuple[int, int]]] = {}
 
     for y in range(len(matrix)):
         for x in range(len(matrix[y])):
@@ -28,26 +26,27 @@ def main():
     anti_nodes: set = set()
 
     for freq in antenna_locations.keys():
-        for i, x in enumerate(antenna_locations[freq]):
-            for y in antenna_locations[freq][i + 1:]:
-                print(x, y)
-                distance = manhatten(x, y)
+        for i, location in enumerate(antenna_locations[freq]):
+            for other_location in antenna_locations[freq][i + 1:]:
+                print(location, other_location)
+                distance = manhattan(location, other_location)
                 print(distance)
-                nodes_left: tuple[int] = (x[0] + distance[0], x[1] + distance[1])
-                nodes_right: tuple[int] = (y[0] - distance[0], y[1] - distance[1])
+                nodes_left: tuple[int, int] = (location[0] + distance[0], location[1] + distance[1])
+                nodes_right: tuple[int, int] = (other_location[0] - distance[0],
+                                                other_location[1] - distance[1])
 
                 print(nodes_left)
                 print(nodes_right)
 
                 if (nodes_left[0] >= 0 and nodes_left[0] < len(matrix[0])
-                    and nodes_left[1] >= 0 and nodes_left[1] < len(matrix)
-                    and nodes_left not in anti_nodes):
+                        and nodes_left[1] >= 0 and nodes_left[1] < len(matrix)
+                        and nodes_left not in anti_nodes):
                     amount_antinode += 1
                     anti_nodes.add(nodes_left)
 
                 if (nodes_right[0] >= 0 and nodes_right[0] < len(matrix[0])
-                    and nodes_right[1] >= 0 and nodes_right[1] < len(matrix)
-                    and nodes_right not in anti_nodes):
+                        and nodes_right[1] >= 0 and nodes_right[1] < len(matrix)
+                        and nodes_right not in anti_nodes):
                     amount_antinode += 1
                     anti_nodes.add(nodes_right)
 

@@ -16,7 +16,7 @@ def main():
 
             safe: bool = True
             for index in range(0, len(report) - 1):
-                if abs(report[index] - report[index + 1]) not in [1, 2 ,3]:
+                if abs(report[index] - report[index + 1]) not in [1, 2, 3]:
                     safe = False
                     break
 

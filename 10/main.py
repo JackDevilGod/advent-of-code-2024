@@ -1,6 +1,5 @@
 from time import perf_counter
 from pprint import pprint
-from copy import deepcopy
 
 
 def main():

@@ -15,17 +15,17 @@ def main():
     print(matches)
 
     sum: float = 0
-    anabled = True
+    enabled = True
     for match in matches:
-        fcommand, tcommand, x, y = match
+        f_command, t_command, x, y = match
 
-        if fcommand == "don't()":
-            anabled = False
-        elif tcommand == "do()":
-            anabled = True
+        if f_command == "don't()":
+            enabled = False
+        elif t_command == "do()":
+            enabled = True
             continue
 
-        if anabled:
+        if enabled:
             sum += float(x) * float(y)
 
     print(sum)
