@@ -14,24 +14,24 @@ def main():
         count_stones[stone] = row_stones.count(stone)
 
     for instance in range(75):
-        print(instance)
+        print(f"{instance}/75")
         new_dict = {}
 
         for stone in count_stones.keys():
             if stone == 0:
-                new_stone = [1]
+                new_stones:list[int] = [1]
             elif len(str(stone)) % 2 == 0:
                 str_digit = str(stone)
                 pivot = len(str_digit)//2
-                new_stone = [int(str_digit[:pivot]), int(str_digit[pivot:])]
+                new_stones = [int(str_digit[:pivot]), int(str_digit[pivot:])]
             else:
-                new_stone = [stone * 2024]
+                new_stones = [stone * 2024]
 
-            for thing in new_stone:
-                if thing not in new_dict.keys():
-                    new_dict[thing] = count_stones[stone]
+            for new_stone in new_stones:
+                if new_stone not in new_dict.keys():
+                    new_dict[new_stone] = count_stones[stone]
                 else:
-                    new_dict[thing] += count_stones[stone]
+                    new_dict[new_stone] += count_stones[stone]
 
         count_stones = new_dict
 
