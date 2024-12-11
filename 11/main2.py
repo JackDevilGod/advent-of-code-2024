@@ -9,26 +9,33 @@ def main():
         for line in [line.removesuffix("\n") for line in file]:
             row_stones = [int(_) for _ in line.split()]
 
-    print(row_stones)
-    for instance in range(75):
-        print(f"{instance + 1}/75")
-        new_row: list[int] = []
+    count_stones: dict = {}
+    for stone in set(row_stones):
+        count_stones[stone] = row_stones.count(stone)
 
-        for stone in row_stones:
+    for instance in range(75):
+        print(instance)
+        new_dict = {}
+
+        for stone in count_stones.keys():
             if stone == 0:
-                new_row.append(1)
+                new_stone = [1]
             elif len(str(stone)) % 2 == 0:
                 str_digit = str(stone)
                 pivot = len(str_digit)//2
-                new_row.append(int(str_digit[:pivot]))
-                new_row.append(int(str_digit[pivot:]))
+                new_stone = [int(str_digit[:pivot]), int(str_digit[pivot:])]
             else:
-                new_row.append(stone * 2024)
+                new_stone = [stone * 2024]
 
-        row_stones = new_row
+            for thing in new_stone:
+                if thing not in new_dict.keys():
+                    new_dict[thing] = count_stones[stone]
+                else:
+                    new_dict[thing] += count_stones[stone]
 
-    print(len(row_stones))
+        count_stones = new_dict
 
+    print(sum([count_stones[key] for key in count_stones.keys()]))
 
 if __name__ == '__main__':
     start: float = perf_counter()
