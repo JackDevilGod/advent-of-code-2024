@@ -37,6 +37,7 @@ def main():
         count_stones = new_dict
 
     print(sum([count_stones[key] for key in count_stones.keys()]))
+    print(220566831337810 == sum([count_stones[key] for key in count_stones.keys()]))
 
 
 if __name__ == '__main__':

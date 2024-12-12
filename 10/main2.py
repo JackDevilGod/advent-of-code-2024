@@ -11,7 +11,7 @@ def main():
 
     pprint(matrix)
 
-    start_queue: list = []
+    start_queue: list[tuple[int, int, int]] = []
 
     for y in range(len(matrix)):
         for x in range(len(matrix[y])):
