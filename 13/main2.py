@@ -1,5 +1,9 @@
 from time import perf_counter
 import re
+from sympy import symbols, Eq, solve
+import sympy
+import sympy.core
+import sympy.core.numbers
 
 
 def main():
@@ -14,7 +18,7 @@ def main():
 
         while index < len(lines):
             prize_x, prize_y = re.findall(pattern_prize, lines[index + 2])[0]
-            prize = (int(prize_x), int(prize_y))
+            prize = (int(prize_x) + 10000000000000, int(prize_y) + 10000000000000)
 
             button_x, button_y = re.findall(pattern_button, lines[index])[0]
             button_1 = (int(button_x), int(button_y))
@@ -33,16 +37,17 @@ def main():
     for prize in machines.keys():
         button_a = machines[prize][0]
         button_b = machines[prize][1]
-        possible_moves: list[int] = []
 
-        for amount_a in range(1, 101):
-            for amount_b in range(1, 101):
-                if (amount_a * button_a[0] + amount_b * button_b[0] == prize[0] and
-                        amount_a * button_a[1] + amount_b * button_b[1] == prize[1]):
-                    possible_moves.append(amount_a * 3 + amount_b)
+        x, y = symbols('x,y')
 
-        if possible_moves != []:
-            total_tokens += min(possible_moves)
+        eq1 = Eq((x * button_a[0] + y * button_b[0]), prize[0])
+        eq2 = Eq((x * button_a[1] + y * button_b[1]), prize[1])
+
+        solution = solve((eq1, eq2), (x, y))
+        print(type(solution))
+        if (type(solution[x]) is sympy.core.numbers.Integer and
+                type(solution[y]) is sympy.core.numbers.Integer):
+            total_tokens += solution[x] * 3 + solution[y]
 
     print(total_tokens)
 
