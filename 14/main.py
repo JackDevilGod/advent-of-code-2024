@@ -48,6 +48,7 @@ def main():
 
     print(robot_position)
     print(q1 * q2 * q3 * q4)
+    print(q1 * q2 * q3 * q4 == 216027840)
     print((q1, q2, q3, q4))
 
 
