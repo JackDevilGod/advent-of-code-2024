@@ -30,8 +30,6 @@ def main():
 
             index += 4
 
-    print(machines)
-
     total_tokens: int = 0
 
     for prize in machines.keys():
@@ -44,12 +42,12 @@ def main():
         eq2 = Eq((x * button_a[1] + y * button_b[1]), prize[1])
 
         solution = solve((eq1, eq2), (x, y))
-        print(type(solution))
         if (type(solution[x]) is sympy.core.numbers.Integer and
                 type(solution[y]) is sympy.core.numbers.Integer):
             total_tokens += solution[x] * 3 + solution[y]
 
     print(total_tokens)
+    print(total_tokens == 107487112929999)
 
 
 if __name__ == '__main__':
