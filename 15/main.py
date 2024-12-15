@@ -85,6 +85,7 @@ def main():
                 sum += (100 * y) + x
 
     print(sum)
+    print(sum == 1412971)
 
 
 if __name__ == '__main__':
