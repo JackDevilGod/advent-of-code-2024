@@ -82,7 +82,7 @@ def push_box_hor(box_left_position: tuple[int, int],
             return True
         case ("]", "["):
             if offset[0] < 0:
-                if push_box_hor((box_left_position[0] + (2* offset[0]),
+                if push_box_hor((box_left_position[0] + (2 * offset[0]),
                                  box_left_position[1] + offset[1]),
                                 (box_left_position[0] + offset[0],
                                  box_left_position[1] + offset[1]),
