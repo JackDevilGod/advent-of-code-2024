@@ -1,4 +1,5 @@
 from time import perf_counter
+from copy import deepcopy
 
 matrix: list[list[str]] = []
 
@@ -10,6 +11,20 @@ def main():
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
         for line in [line.removesuffix("\n") for line in file]:
             matrix.append(list(line))
+
+    running = True
+    while running:
+        copy_matrix = deepcopy(matrix)
+
+        for y in range(len(matrix)):
+            for x in range(len(matrix[y])):
+                if matrix[y][x] == ".":
+                    if [matrix[y + 1][x], matrix[y - 1][x],
+                            matrix[y][x + 1], matrix[y][x - 1]].count("#") >= 3:
+                        matrix[y][x] = "#"
+
+        if matrix == copy_matrix:
+            running = False
 
     starting_point: tuple[int, int] = (0, 0)
     end_point: tuple[int, int] = (0, 0)
@@ -31,7 +46,6 @@ def main():
         current_position, direction, current_score = move_queue.pop(0)
         current_x, current_y = current_position
         explored.add((current_position, direction, current_score))
-        print(current_position)
 
         if matrix[current_y + 1][current_x] == "." and direction != "S":
             if direction == "N":
