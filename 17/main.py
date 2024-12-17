@@ -52,6 +52,7 @@ def main():
 
     print(a, b, c)
     print(program)
+    print(output)
     print(",".join([str(_) for _ in output]))
 
 
