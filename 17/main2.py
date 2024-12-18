@@ -1,5 +1,6 @@
 from time import perf_counter
 from math import trunc
+from sympy import symbols, Eq, solve
 
 
 def run(a, b, c, program):
@@ -49,25 +50,42 @@ def run(a, b, c, program):
     return output
 
 
+def decode_8(code: list[int]) -> int:
+    return sum([value * (8**index) for index, value in enumerate(reversed(code))])
+
+
+def list_number(lst: list[int]) -> int:
+    return int("".join([str(_) for _ in lst]))
+
+
 def main():
     import os
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
         lines = file.readlines()
+        a: int = 0
         program: list[int] = [int(_) for _ in lines[4].split(":")[1].split(",")]
 
-    bits: list[int] = []
+    queue = [(len(program) - 1, 0)]
+    x = []
+    while queue:
+        index, current = queue.pop(0)
 
-    for index, value in enumerate(program):
-        bits.append(value * (8**(index+1)))
+        if index < 0:
+            continue
 
-    a = bits.pop(0)
+        for val in range(8):
+            next = (current << 3) + val
+            if run(next, 0, 0, program) != program[index:]:
+                continue
 
-    for bit in bits:
-        a ^= bit
+            queue.append((index - 1, next))
+
+            if index == 0:
+                x.append(next)
 
     print(program)
     print(run(a, 0, 0, program))
-    print(a)
+    print(min(x))
 
 
 if __name__ == '__main__':
