@@ -76,7 +76,7 @@ def main():
                 x.append(next)
 
     print(program)
-    print(run(a, 0, 0, program))
+    print(run(min(x), 0, 0, program))
     print(min(x))
 
 
