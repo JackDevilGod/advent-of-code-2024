@@ -54,7 +54,6 @@ def main():
     import os
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
         lines = file.readlines()
-        a: int = 0
         program: list[int] = [int(_) for _ in lines[4].split(":")[1].split(",")]
 
     queue = [(len(program) - 1, 0)]
@@ -70,10 +69,10 @@ def main():
             if run(next, 0, 0, program) != program[index:]:
                 continue
 
-            queue.append((index - 1, next))
-
             if index == 0:
                 x.append(next)
+            else:
+                queue.append((index - 1, next))
 
     print(program)
     print(run(min(x), 0, 0, program))
