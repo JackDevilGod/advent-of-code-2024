@@ -50,14 +50,6 @@ def run(a, b, c, program):
     return output
 
 
-def decode_8(code: list[int]) -> int:
-    return sum([value * (8**index) for index, value in enumerate(reversed(code))])
-
-
-def list_number(lst: list[int]) -> int:
-    return int("".join([str(_) for _ in lst]))
-
-
 def main():
     import os
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "input.txt"), "r+") as file:
