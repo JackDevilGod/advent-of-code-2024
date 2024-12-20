@@ -62,19 +62,18 @@ def main():
 
     for begin_short in time_memory.keys():
         for end_short in time_memory.keys():
-            if begin_short == end_short:
-                continue
-            elif matrix[(begin_short[1] +
-                         end_short[1])//2][(begin_short[0] + end_short[0])//2] != "#":
-                continue
-            elif (abs(begin_short[0] - end_short[0]),
-                  abs(begin_short[1] - end_short[1])) not in [(2, 0), (0, 2)]:
+            if (begin_short == end_short or
+                    matrix[(begin_short[1] + end_short[1])//2][(begin_short[0] +
+                                                                end_short[0])//2] != "#" or
+                    (abs(begin_short[0] - end_short[0]),
+                     abs(begin_short[1] - end_short[1])) not in [(2, 0), (0, 2)]):
                 continue
 
             if time_memory[end_short] - (time_memory[begin_short] + 2) >= 100:
                 amount += 1
 
     print(f"the amount shortcuts fast then x:{amount}")
+    print(amount == 1511)
 
 
 if __name__ == '__main__':
