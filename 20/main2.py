@@ -62,9 +62,8 @@ def main():
 
     for begin_short in time_memory.keys():
         for end_short in time_memory.keys():
-            if begin_short == end_short:
-                continue
-            elif abs(begin_short[0] - end_short[0]) + abs(begin_short[1] - end_short[1]) > 20:
+            if (begin_short == end_short or
+                    abs(begin_short[0] - end_short[0]) + abs(begin_short[1] - end_short[1]) > 20):
                 continue
 
             if time_memory[end_short] - (time_memory[begin_short] +
@@ -73,6 +72,7 @@ def main():
                 amount += 1
 
     print(f"the amount shortcuts fast then x:{amount}")
+    print(amount == 1020507)
 
 
 if __name__ == '__main__':
